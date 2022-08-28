@@ -11,7 +11,6 @@ public class Ghost : MonoBehaviour
     public GhostBehavior initialBehavior;
     public Transform target;
     public int points = 200;
-    private GameManager gameManager;
 
     private void Awake()
     {
@@ -20,7 +19,6 @@ public class Ghost : MonoBehaviour
         scatter = GetComponent<GhostScatter>();
         chase = GetComponent<GhostChase>();
         frightened = GetComponent<GhostFrightened>();
-        gameManager = GetComponent<GameManager>();
     }
 
     private void Start()
@@ -58,9 +56,9 @@ public class Ghost : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman"))
         {
             if (frightened.enabled) {
-                gameManager.GhostEaten(this);
+                FindObjectOfType<GameManager>().GhostEaten(this);
             } else {
-                gameManager.PacmanEaten();
+                FindObjectOfType<GameManager>().PacmanEaten();
             }
         }
     }
