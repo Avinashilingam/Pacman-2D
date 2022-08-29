@@ -3,6 +3,11 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    // GameManager Singleton
+    private static GameManager instance;
+    public static GameManager Instance {get{return instance;}}
+
+    //other data
     public Ghost[] ghosts;
     public Pacman pacman;
     public Transform pellets;
@@ -14,6 +19,19 @@ public class GameManager : MonoBehaviour
     public int ghostMultiplier { get; private set; } = 1;
     public int score { get; private set; }
     public int lives { get; private set; }
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
